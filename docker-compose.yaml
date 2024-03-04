@@ -3,7 +3,7 @@ version: '3.9'
 services:
   app:
     image: llkoull/pw2-local-environment
-    container_name: ${PROJECT_PREFIX}-local-environment_app
+    container_name: ${PROJECT_PREFIX}_${PROJECT_NAME}_app
     restart: unless-stopped
     working_dir: /var/www/
     environment:
@@ -23,7 +23,7 @@ services:
   mysql:
     image: mysql:latest
     platform: linux/amd64
-    container_name: ${PROJECT_PREFIX}-local-environment_mysql
+    container_name: ${PROJECT_PREFIX}_${PROJECT_NAME}_mysql
     command: mysqld --default-authentication-plugin=mysql_native_password
     restart: unless-stopped
     ports:
@@ -42,7 +42,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin:latest
-    container_name: ${PROJECT_PREFIX}-local-environment_phpmyadmin
+    container_name: ${PROJECT_PREFIX}_${PROJECT_NAME}_phpmyadmin
     environment:
       PMA_HOST: mysql
       PMA_ARBITRARY: 1
@@ -61,7 +61,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: ${PROJECT_PREFIX}-local-environment_nginx
+    container_name: ${PROJECT_PREFIX}_${PROJECT_NAME}_nginx
     restart: unless-stopped
     ports:
       - ${NGINX_PORT}:80
