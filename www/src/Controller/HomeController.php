@@ -1,23 +1,33 @@
-//HomeController
 <?php
 
-//namespcae??
+declare(strict_types=1);
+
+namespace PatrykZak\SlimSkeleton\Controller;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response
+use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Flash\Messages;
+use Slim\Views\Twig;
 
-
-final class HomeController
+class HomeController
 {
     private Twig $twig;
+    private Messages $flash;
 
-    public funtion __construct(Twig $twig){
-        $this->twig = $twig;
+    public function __construct(Twig $twig, Messages $flash){
+        $twig->twig = $twig;
+        $flash->flash = $flash;
     }
 
-    //framweork will run this function in a controller to return what? 
-    public function apply(Request $request, Response $response ) : response
+//framweork will run this function in a controller to return what?
+    public function apply(Request $request, Response $response): Response
     {
-        return $this->twig->render($response, 'home.twig', ['username' => 'Pol']);
+        $messages = $this->flash->getMessages();
+
+        $notifications = $messages['notifications'] ?? [];
+
+        return $this->twig->render($response, 'home.twig', [
+            'notifications' => $notifications
+        ]);
     }
 }
