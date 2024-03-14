@@ -7,6 +7,7 @@ use PatrykZak\SlimSkeleton\Middleware\AfterMiddleware;
 use PatrykZak\SlimSkeleton\Middleware\SessionMiddleware;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
+use Student\SlimSkeleton\Controller\CreateUserController;
 
 $app->get('/', HomeController::class . ':apply')->setName('home')->add(AfterMiddleware::class);
 
@@ -22,6 +23,7 @@ $app->add(AfterMiddleware::class);
 
 $app->add(SessionMiddleware::class);
 $app->get('/visits', VisitsController::class . ':showVisits')->setName('visits');
+$app->post('/user', CreateUserController::class . ":apply")->setName('create_user');
 
 
 
